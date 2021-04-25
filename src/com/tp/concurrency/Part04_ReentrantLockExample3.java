@@ -106,9 +106,9 @@ class BalanceRunnable implements Runnable {
 public class Part04_ReentrantLockExample3 {
 	public static void main(String[] args) {
 		Account account = new Account();
-		DepositRunnable dr1 = new DepositRunnable(5000, account);
+		DepositRunnable dr1 = new DepositRunnable(8000, account);
 		WithdrawRunnable wr1 = new WithdrawRunnable(2000, account);
-		DepositRunnable dr2 = new DepositRunnable(8000, account);
+		DepositRunnable dr2 = new DepositRunnable(7000, account);
 		WithdrawRunnable wr2 = new WithdrawRunnable(6000, account);
 		BalanceRunnable br = new BalanceRunnable(account);
 		Thread t1 = new Thread(dr1);

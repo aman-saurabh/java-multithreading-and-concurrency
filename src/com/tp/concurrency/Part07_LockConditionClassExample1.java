@@ -54,7 +54,7 @@ class SyncQueue {
 	}
 }
 
-public class Part07_LockConditionClassExample {
+public class Part07_LockConditionClassExample1 {
 	public static void main(String[] args) {
 		SyncQueue queue = new SyncQueue();
 		Runnable r1 = () -> {

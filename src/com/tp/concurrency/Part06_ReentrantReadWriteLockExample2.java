@@ -112,9 +112,9 @@ class BalanceRunnable2 implements Runnable {
 public class Part06_ReentrantReadWriteLockExample2 {
 	public static void main(String[] args) {
 		Account2 account = new Account2();
-		DepositRunnable2 dr1 = new DepositRunnable2(5000, account);
+		DepositRunnable2 dr1 = new DepositRunnable2(8000, account);
 		WithdrawRunnable2 wr1 = new WithdrawRunnable2(2000, account);
-		DepositRunnable2 dr2 = new DepositRunnable2(8000, account);
+		DepositRunnable2 dr2 = new DepositRunnable2(7000, account);
 		WithdrawRunnable2 wr2 = new WithdrawRunnable2(6000, account);
 		BalanceRunnable2 br = new BalanceRunnable2(account);
 		Thread t1 = new Thread(dr1);

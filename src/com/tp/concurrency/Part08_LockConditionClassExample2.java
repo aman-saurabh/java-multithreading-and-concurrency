@@ -3,7 +3,11 @@ package com.tp.concurrency;
 /*
  * This is one of the most appropriate solution to the problem discussed in Part4 and part6.
  * Solved the same problem of part4 with the help of 'Condition' class.
+ * It should be executed in the following sequence :
+ * First one deposit() method gets executed, followed by checkBalance(),then one withdrawl(), again followed by checkBalance(),
+ * then second deposit() method gets executed, followed by checkBalance(),then second withdrawl(), finally checkBalance() in the last.
  */
+
 import java.text.MessageFormat;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
@@ -94,7 +98,7 @@ class Account3 {
 	public void checkBalance() throws InterruptedException {
 		try {
 			writeLock.lock();
-			if(readRequired == false) {
+			while(readRequired == false) {
 				depositOrWithdraw.await();
 			}
 			String msg = MessageFormat.format("Your balance is Rs. {0, number}/-", balance);
@@ -154,12 +158,12 @@ class BalanceRunnable3 implements Runnable {
 	}
 }
 
-public class Part08_LockConditionExample2 {
+public class Part08_LockConditionClassExample2 {
 	public static void main(String[] args) {
 		Account3 account = new Account3();
-		DepositRunnable3 dr1 = new DepositRunnable3(5000, account);
+		DepositRunnable3 dr1 = new DepositRunnable3(8000, account);
 		WithdrawRunnable3 wr1 = new WithdrawRunnable3(2000, account);
-		DepositRunnable3 dr2 = new DepositRunnable3(8000, account);
+		DepositRunnable3 dr2 = new DepositRunnable3(7000, account);
 		WithdrawRunnable3 wr2 = new WithdrawRunnable3(6000, account);
 		Thread t1 = new Thread(dr1);
 		Thread t2 = new Thread(new BalanceRunnable3(account));
@@ -177,14 +181,16 @@ public class Part08_LockConditionExample2 {
 		t6.start();
 		t7.start();
 		t8.start();
-//		try {
-//			Thread.sleep(8000);
-//		} catch (InterruptedException e) {
-//			e.printStackTrace();
-//		}
-//		t1.interrupt();
-//		t3.interrupt();
-//		t5.interrupt();
-//		t7.interrupt();
+		
+		//If you want to check full execution, comment following lines. 
+		try {
+			Thread.sleep(8000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		t1.interrupt();
+		t3.interrupt();
+		t5.interrupt();
+		t7.interrupt();
 	}
 }
